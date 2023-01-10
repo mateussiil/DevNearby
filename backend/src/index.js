@@ -8,15 +8,12 @@ const { setupWebsocket } = require('./websocket');
 
 require("dotenv").config();
 
-console.log(process.env.MONGO_URL)
-
 const app = express();
 const server = http.Server(app);
 
 setupWebsocket(server);
 
-
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect(process.env.MONGO_URL_LOCAL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
