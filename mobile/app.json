@@ -1,8 +1,7 @@
 {
   "expo": {
-    "name": "DevRadar",
+    "name": "DevNearby",
     "slug": "mobile",
-    "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
@@ -14,7 +13,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#7D40E7"
+      "backgroundColor": "#013959"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -26,7 +25,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.rockeseat.devradar"
+      "package": "com.zimacode.devradar"
     }
   }
 }
