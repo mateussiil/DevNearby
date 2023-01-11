@@ -19,6 +19,8 @@ function getEnvVars(env = "", variable="BASE_URL") {
   if (env.indexOf("development") !== -1) return ENV.dev[variable];
   if (env.indexOf("staging") !== -1) return ENV.staging[variable];
   if (env.indexOf("production") !== -1) return ENV.prod[variable];
+
+  return ENV.dev[variable];
 }
 
 export default getEnvVars(Constants.manifest.releaseChannel);
