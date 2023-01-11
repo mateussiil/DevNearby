@@ -113,9 +113,12 @@ function Main({ navigation }){
             onChangeText={setTechs}
          />
          <TouchableOpacity onPress={loadDevs} style={styles.loadButton}>
-            <MaterialIcons name="my-location" size={20} color="#FFF"/>   
+            <MaterialIcons name="search" size={20} color="#FFF"/>   
          </TouchableOpacity>
       </View>
+      <TouchableOpacity style={styles.selfPositionButton}>
+         <MaterialIcons name="my-location" size={20} color="#FFF"/>   
+      </TouchableOpacity>
    </>
    );
 }
@@ -172,6 +175,18 @@ const styles = StyleSheet.create({
    loadButton:{
       width:50,
       height:50,
+      backgroundColor:'#013959',
+      borderRadius:25,
+      justifyContent:'center',
+      alignItems:'center',
+      marginLeft:15,
+   },
+   selfPositionButton:{
+      width:50,
+      height:50,
+      position: 'absolute',
+      bottom: 20,
+      right: 20,
       backgroundColor:'#013959',
       borderRadius:25,
       justifyContent:'center',
