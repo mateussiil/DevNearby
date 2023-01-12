@@ -6,7 +6,7 @@ module.exports = {
     // Buscar todos os devs num 10km
     // Filtrar por tecnologia 
 
-    const { techs, latitude, longitude } = request.query;
+    const { techs, latitude, longitude, distance } = request.query;
 
     const techsArray = parseStringAsArray(techs);
 
@@ -20,7 +20,7 @@ module.exports = {
             type:'Point',
             coordinates: [longitude, latitude],
           },
-          $maxDistance:10000, //perto de 10000m
+          $maxDistance: Number(distance) > 10000 ? distance : 10000, //perto de 10000m
         },
       },
     });
