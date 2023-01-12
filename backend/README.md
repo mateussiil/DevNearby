@@ -22,7 +22,7 @@ This application uses Mongoose, a MongoDB object modeling tool, to interact with
 - MongoDB v4+
 
 ## Installation
-Clone this repository: git clone https://github.com/your-username/your-app.git
+Clone this repository: git clone https://github.com/mateussiil/DevNearby.git
 
 Navigate to the project directory: cd backend
 
