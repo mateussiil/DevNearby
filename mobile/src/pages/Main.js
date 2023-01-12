@@ -6,6 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import api from '../services/api';
 import {connect, disconnect, subscribeToNewDevs } from '../services/socket';
+import { getLongitudeDistanceInMeters } from '../utils/map';
 
 function Main({ navigation }){
    const [ devs, setDevs ] = useState([]);
@@ -54,12 +55,15 @@ function Main({ navigation }){
    };
 
    async function loadDevs(){
-      const { latitude, longitude } = currentRegion;
+      const { latitude, longitude, longitudeDelta } = currentRegion;
+
+      const longitudeDeltaInMeters = getLongitudeDistanceInMeters(longitudeDelta)
 
       const response = await api.get('/search', {
          params:{
             latitude,
             longitude,
+            distance: longitudeDeltaInMeters,
             techs
          }
       });
@@ -69,11 +73,6 @@ function Main({ navigation }){
 
    function handleRegionChanged(region){
       setCurrentRegion(region);
-      
-
-      // console.log({distance: width * 111.320 * cos(latitudeDelta) / latitudeDelta})
-
-      // setDistancePerDegreeLatitude(width * 111.320 * cos(latitudeDelta) / latitudeDelta);
    }
 
    const goToMyLocation = async () => {
@@ -133,7 +132,7 @@ function Main({ navigation }){
       <View style={styles.searchForm}>
          <TextInput
             style={styles.searchInput}
-            placeholder="Buscar devs por techs..." 
+            placeholder="Search devs by techs..." 
             placeholderTextColor="#999"
             autoCapitalize="words"
             autoCorrect={false}  
@@ -220,7 +219,7 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       alignItems:'center',
       marginLeft:15,
-   },
+   }
 });
 
 export default Main;
