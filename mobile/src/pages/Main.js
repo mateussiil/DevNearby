@@ -1,6 +1,6 @@
-import React, { useState ,useEffect } from 'react';
+import React, { useState ,useEffect, useRef } from 'react';
 import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity} from 'react-native';
-import MapView, { Marker, Callout } from 'react-native-maps';
+import MapView, { Marker, Callout, AnimatedRegion } from 'react-native-maps';
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -10,7 +10,11 @@ import {connect, disconnect, subscribeToNewDevs } from '../services/socket';
 function Main({ navigation }){
    const [ devs, setDevs ] = useState([]);
    const [ currentRegion, setCurrentRegion] =  useState(null);
+   const [ initialRegion, setInitialRegion] =  useState(null);
    const [ techs, setTechs] = useState('');
+   const [ distancePerDegreeLatitude, setDistancePerDegreeLatitude ] = useState(0);
+
+   const mapRef = useRef(null);
 
    useEffect(()=>{
       async function loadInitialPosition(){
@@ -40,7 +44,7 @@ function Main({ navigation }){
    function setupWebsocket(){
       disconnect();
 
-      const { latitude, longitude} = currentRegion;
+      const { latitude, longitude } = currentRegion;
 
       connect(
          latitude,
@@ -65,6 +69,28 @@ function Main({ navigation }){
 
    function handleRegionChanged(region){
       setCurrentRegion(region);
+      
+
+      // console.log({distance: width * 111.320 * cos(latitudeDelta) / latitudeDelta})
+
+      // setDistancePerDegreeLatitude(width * 111.320 * cos(latitudeDelta) / latitudeDelta);
+   }
+
+   const goToMyLocation = async () => {
+      const { coords } = await getCurrentPositionAsync({
+         enableHighAccuracy: true,
+      });
+
+      const { latitude, longitude } = coords;
+
+      mapRef.current.animateCamera({
+         center: { 
+            latitude, 
+            longitude,
+            // latitudeDelta: 0.04,
+            // longitudeDelta: 0.04,
+         }
+      });
    }
 
    if(!currentRegion){
@@ -74,9 +100,11 @@ function Main({ navigation }){
    return (
    <>
       <MapView 
+         ref={mapRef}
          onRegionChangeComplete={handleRegionChanged} 
          initialRegion={currentRegion}
          style={styles.map}
+         showsUserLocation={true}
          >
          {devs.map(dev=> (
             <Marker 
@@ -116,7 +144,7 @@ function Main({ navigation }){
             <MaterialIcons name="search" size={20} color="#FFF"/>   
          </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.selfPositionButton}>
+      <TouchableOpacity onPress={goToMyLocation} style={styles.selfPositionButton}>
          <MaterialIcons name="my-location" size={20} color="#FFF"/>   
       </TouchableOpacity>
    </>
