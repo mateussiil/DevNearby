@@ -11,9 +11,7 @@ import { getLongitudeDistanceInMeters } from '../utils/map';
 function Main({ navigation }){
    const [ devs, setDevs ] = useState([]);
    const [ currentRegion, setCurrentRegion] =  useState(null);
-   const [ initialRegion, setInitialRegion] =  useState(null);
    const [ techs, setTechs] = useState('');
-   const [ distancePerDegreeLatitude, setDistancePerDegreeLatitude ] = useState(0);
 
    const mapRef = useRef(null);
 
@@ -146,6 +144,9 @@ function Main({ navigation }){
       <TouchableOpacity onPress={goToMyLocation} style={styles.selfPositionButton}>
          <MaterialIcons name="my-location" size={20} color="#FFF"/>   
       </TouchableOpacity>
+      <TouchableOpacity onPress={()=> navigation.navigate('Register')} style={styles.navigationButton}>
+         <Text>Register</Text>
+      </TouchableOpacity>
    </>
    );
 }
@@ -174,7 +175,6 @@ const styles = StyleSheet.create({
    devTechs:{
       marginTop:5,
    },
-
    searchForm:{
       position:'absolute', 
       top:20,
@@ -219,7 +219,19 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       alignItems:'center',
       marginLeft:15,
-   }
+   },
+   navigationButton:{
+      width:50,
+      height:50,
+      position: 'absolute',
+      bottom: 20,
+      right: 100,
+      backgroundColor:'#013959',
+      borderRadius:25,
+      justifyContent:'center',
+      alignItems:'center',
+      marginLeft:15,
+   },
 });
 
 export default Main;

@@ -3,19 +3,26 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Main from './pages/Main';
 import Profile from './pages/Profile';
+import Register from './pages/Register';
 
 const Routes = createAppContainer(
   createStackNavigator({
     Main:{
       screen:Main,
       navigationOptions:{
-        title: 'DevRadar'
+        title: 'DevNearby'
+      }
+    },
+    Register:{
+      screen:Register,
+      navigationOptions:{
+        title: 'Register'
       }
     },
     Profile:{
       screen: Profile,
       navigationOptions:{
-        title: 'Perfil no GitHub'
+        title: 'Profile on GitHub'
       }
     },
   }, {

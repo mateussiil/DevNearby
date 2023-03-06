@@ -4,7 +4,7 @@ export const prodUrl = "https://someapp.herokuapp.com";
 
 const ENV = {
   dev: {
-    BASE_URL: "http://192.168.192.1:3333"
+    BASE_URL: "http://localhost:3333"
   },
   staging: {
     BASE_URL: prodUrl
